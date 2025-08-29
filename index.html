@@ -13,26 +13,31 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Gaya untuk layar loading */
-        #loadingScreen {
+
+        /* Gaya untuk layar loading dan modal */
+        #loadingScreen, #confirmModal, #messageModal {
             transition: opacity 0.5s ease-in-out;
             opacity: 1;
         }
-        #loadingScreen.hidden {
+
+        .hidden {
             opacity: 0;
             pointer-events: none;
             display: none;
         }
+
         /* Gaya untuk modal konfirmasi */
         #confirmModal {
             transition: opacity 0.3s ease-in-out;
             opacity: 1;
         }
+
         #confirmModal.hidden {
             opacity: 0;
             pointer-events: none;
             display: none;
         }
+
         /* Custom styles for ST9CU logo */
         .st9cu-logo {
             font-family: sans-serif;
@@ -40,29 +45,41 @@
             font-size: 4rem;
             line-height: 1;
             color: #333;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 1rem;
         }
+
         .st9cu-logo span {
             color: #FFC107;
         }
+
         .st9cu-logo-small {
             font-family: sans-serif;
             font-weight: 900;
             font-size: 2rem;
             line-height: 1;
             color: #333;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
             margin-bottom: 1rem;
             text-align: center;
         }
+
         .st9cu-logo-small span {
             color: #FFC107;
+        }
+
+        /* Gaya responsif untuk tombol navigasi */
+        @media (max-width: 640px) {
+            #prevBtn, #nextBtn, #finishBtn {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                font-size: 0.875rem;
+            }
         }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
-    
+
     <!-- Layar Loading -->
     <div id="loadingScreen" class="fixed inset-0 bg-white flex items-center justify-center z-50">
         <div class="text-center">
@@ -72,10 +89,9 @@
     </div>
 
     <!-- Layar Selamat Datang -->
-    <div id="welcomeScreen" class="hidden min-h-screen flex items-center justify-center p-4">
+    <div id="welcomeScreen" class="min-h-screen flex items-center justify-center p-4">
         <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-2xl">
             <div class="text-center mb-8">
-                <!-- Tampilan logo dan teks yang telah diperbarui -->
                 <div class="st9cu-logo flex justify-center">ST<span>9</span>CU</div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Post Test ST9CU Bulan Agustus 2025</h1>
                 <p class="text-gray-600 mb-4">waktunya ST9CU, sdm tiap hari, eksis dengan content Update, daftar dulu yuk!</p>
@@ -89,7 +105,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                 <h3 class="font-semibold text-blue-800 mb-2">Petunjuk Kuis:</h3>
                 <ul class="text-sm text-blue-700 space-y-1 list-disc list-inside">
@@ -121,7 +137,7 @@
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                     <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-border-transparent" placeholder="Masukkan email (opsional)">
                 </div>
-                
+
                 <div class="flex items-center">
                     <input type="checkbox" id="agreement" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" required>
                     <label for="agreement" class="ml-2 block text-sm text-gray-700">
@@ -142,19 +158,19 @@
         <!-- Header Kuis -->
         <header class="bg-white shadow-lg sticky top-0 z-40">
             <div class="max-w-4xl mx-auto px-4 py-4">
-                <div class="flex justify-between items-center">
-                    <div>
+                <div class="flex flex-col sm:flex-row justify-between items-center sm:space-y-0 space-y-4">
+                    <div class="text-center sm:text-left">
                         <div class="st9cu-logo-small">ST<span>9</span>CU</div>
                         <p class="text-sm text-gray-600">Peserta: <span id="participantName"></span></p>
                     </div>
-                    <div class="text-right">
+                    <div class="text-center sm:text-right">
                         <div id="timer" class="text-2xl font-bold text-red-600 mb-1">60:00</div>
                         <div class="text-sm text-gray-600">
                             Soal <span id="currentQuestion">1</span> dari <span id="totalQuestionsDisplay">20</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Progress Bar -->
                 <div class="mt-4">
                     <div class="bg-gray-200 rounded-full h-2">
@@ -189,7 +205,7 @@
                 <div id="questionNav" class="grid grid-cols-5 sm:grid-cols-10 gap-2">
                     <!-- Tombol navigasi soal akan dibuat di sini -->
                 </div>
-                <div class="mt-4 flex items-center space-x-4 text-sm">
+                <div class="mt-4 flex flex-wrap items-center space-x-4 text-sm">
                     <div class="flex items-center">
                         <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
                         <span>Terjawab</span>
@@ -212,11 +228,11 @@
         <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-2xl text-center">
             <div class="st9cu-logo-small flex justify-center mx-auto mb-4">ST<span>9</span>CU</div>
             <h2 class="text-3xl font-bold text-gray-800 mb-4">Kuis Selesai!</h2>
-            
+
             <div class="bg-gray-50 rounded-lg p-6 mb-6">
                 <div class="grid grid-cols-2 gap-4 text-center">
                     <div>
-                        <div class="text-2xl font-bold text-indigo-600" id="finalScore">0</div>
+                        <div class="text-2xl font-bold text-indigo-600" id="finalScore">0/100</div>
                         <div class="text-sm text-gray-600">Skor</div>
                     </div>
                     <div>
@@ -224,7 +240,7 @@
                         <div class="text-sm text-gray-600">Persentase</div>
                     </div>
                 </div>
-                
+
                 <div class="mt-4 pt-4 border-t border-gray-200">
                     <div class="text-lg font-semibold" id="resultStatus">Status: Lulus</div>
                     <div class="text-sm text-gray-600 mt-2" id="resultMessage">
@@ -263,10 +279,28 @@
         </div>
     </div>
     
+    <!-- Modal Pesan -->
+    <div id="messageModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md mx-4">
+            <div class="text-center">
+                <i class="fas fa-info-circle text-4xl text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Informasi</h3>
+                <p class="text-gray-600 mb-6" id="messageText"></p>
+                <button onclick="closeMessageModal()" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Sisi klien JavaScript
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzikVO3fNVfrAGGV0-yUbE2DLQxhRM_tWT5IzekcJinMYGRB5O5T0DcmMuKGiFMNx3W/exec';
-        
+        // Konstanta yang bisa diatur
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzKyGPERPyZbpuD6-hi16kz8_xbXuUuHFf1TD67KcEdJZFMaHh_zohMofmPp0IXqLKv/exec';
+        const TOTAL_QUESTIONS = 20;
+        const POINTS_PER_QUESTION = 5;
+        const PASSING_SCORE = 75; // 15 soal benar * 5 poin
+
         // Variabel global untuk menyimpan data kuis
         let questions = [];
         let currentQuestionIndex = 0;
@@ -276,12 +310,8 @@
         let startTime;
         let participantData = {};
         let isFetching = false;
-        
-        const TOTAL_QUESTIONS = 20;
-        const POINTS_PER_QUESTION = 5;
-        const PASSING_SCORE = 75; // 15 soal benar * 5 poin
+        let quizKey = null; // Key untuk validasi keamanan
 
-        // Mendeteksi apakah halaman dimuat penuh
         document.addEventListener('DOMContentLoaded', function() {
             loadQuizData();
         });
@@ -291,26 +321,24 @@
             if (isFetching) return;
             isFetching = true;
             try {
-                // Fetch soal kuis
                 const response = await fetch(`${API_URL}?action=getQuestions`);
                 const data = await response.json();
-                
+
                 if (data.success && data.questions.length > 0) {
                     questions = data.questions;
-                    
-                    // Fetch pengaturan kuis
+                    quizKey = data.quizKey; // Simpan kunci unik dari server
+
                     const settingsResponse = await fetch(`${API_URL}?action=getSettings`);
                     const settingsData = await settingsResponse.json();
-                    
+
                     if (settingsData.success) {
                         updateQuizSettings(settingsData.settings);
                     }
-                    
+
                     answers = new Array(questions.length).fill(null);
                     
-                    // Update UI dengan nilai-nilai yang sudah ditentukan
-                    document.getElementById('totalQuestions').textContent = TOTAL_QUESTIONS;
-                    document.getElementById('totalQuestionsDisplay').textContent = TOTAL_QUESTIONS;
+                    document.getElementById('totalQuestions').textContent = questions.length;
+                    document.getElementById('totalQuestionsDisplay').textContent = questions.length;
                     document.getElementById('passingScore').textContent = PASSING_SCORE;
 
                     document.getElementById('loadingScreen').classList.add('hidden');
@@ -338,36 +366,36 @@
         // Menangani pengiriman formulir peserta
         document.getElementById('participantForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const fullName = document.getElementById('fullName').value.trim();
             const nip = document.getElementById('nip').value.trim();
             const institution = document.getElementById('institution').value.trim();
             const email = document.getElementById('email').value.trim();
-            
+
             if (!fullName || !nip || !institution) {
                 showError('Semua field yang wajib harus diisi!');
                 return;
             }
-            
+
             participantData = {
                 fullName,
                 nip,
                 institution,
                 email
             };
-            
+
             startQuiz();
         });
 
         // Memulai kuis
         function startQuiz() {
             startTime = new Date().toISOString();
-            
+
             document.getElementById('welcomeScreen').classList.add('hidden');
             document.getElementById('quizScreen').classList.remove('hidden');
-            
+
             document.getElementById('participantName').textContent = participantData.fullName;
-            
+
             generateQuestionNavigation();
             loadQuestion(0);
             startTimer();
@@ -378,7 +406,7 @@
         function generateQuestionNavigation() {
             const navContainer = document.getElementById('questionNav');
             navContainer.innerHTML = '';
-            
+
             for (let i = 0; i < questions.length; i++) {
                 const btn = document.createElement('button');
                 btn.className = 'w-10 h-10 rounded border-2 border-gray-300 bg-gray-100 hover:bg-gray-200 transition duration-200 text-sm font-medium';
@@ -393,10 +421,14 @@
         function loadQuestion(index) {
             if (index < 0 || index >= questions.length) return;
             
-            // Perbarui warna tombol navigasi saat ini ke warna "dikerjakan"
-            const currentNavBtn = document.getElementById(`nav-btn-${currentQuestionIndex}`);
-            if (currentNavBtn && answers[currentQuestionIndex] === null) {
-                currentNavBtn.className = 'w-10 h-10 rounded border-2 border-gray-300 bg-gray-100 hover:bg-gray-200 transition duration-200 text-sm font-medium';
+            // Perbarui warna tombol navigasi sebelumnya
+            const prevNavBtn = document.getElementById(`nav-btn-${currentQuestionIndex}`);
+            if (prevNavBtn) {
+                if (answers[currentQuestionIndex] !== null) {
+                    prevNavBtn.className = 'w-10 h-10 rounded border-2 border-green-500 bg-green-500 text-white font-medium';
+                } else {
+                    prevNavBtn.className = 'w-10 h-10 rounded border-2 border-gray-300 bg-gray-100 hover:bg-gray-200 transition duration-200 text-sm font-medium';
+                }
             }
 
             currentQuestionIndex = index;
@@ -559,6 +591,17 @@
             document.getElementById('confirmModal').classList.add('hidden');
         }
 
+        // Menampilkan modal pesan
+        function showModal(message) {
+            document.getElementById('messageText').textContent = message;
+            document.getElementById('messageModal').classList.remove('hidden');
+        }
+
+        // Menutup modal pesan
+        function closeMessageModal() {
+            document.getElementById('messageModal').classList.add('hidden');
+        }
+
         // Mengirimkan hasil kuis ke Google Apps Script
         async function submitQuiz(timeUp = false) {
             clearInterval(timerInterval);
@@ -574,6 +617,7 @@
                     startTime: startTime,
                     endTime: new Date().toISOString(),
                     timeUp: timeUp,
+                    quizKey: quizKey,
                     browserInfo: navigator.userAgent
                 };
                 
@@ -606,18 +650,18 @@
             document.getElementById('loadingScreen').classList.add('hidden');
             document.getElementById('resultScreen').classList.remove('hidden');
             
-            document.getElementById('finalScore').textContent = `${score}/${totalQuestions * POINTS_PER_QUESTION}`;
+            const maxScore = totalQuestions * POINTS_PER_QUESTION;
+
+            document.getElementById('finalScore').textContent = `${score}/${maxScore}`;
             document.getElementById('finalPercentage').textContent = `${percentage}%`;
             
-            const passingScore = PASSING_SCORE;
             const statusElement = document.getElementById('resultStatus');
             const messageElement = document.getElementById('resultMessage');
             
-            // Menggunakan kelas untuk mengontrol tampilan logo di layar hasil
             const logoElement = document.querySelector('#resultScreen .st9cu-logo-small');
             logoElement.style.display = 'block';
 
-            if (score >= passingScore) {
+            if (score >= PASSING_SCORE) {
                 statusElement.textContent = 'Status: LULUS';
                 statusElement.className = 'text-lg font-semibold text-green-600';
                 messageElement.textContent = 'Selamat! Anda telah lulus kuis dengan baik.';
@@ -663,49 +707,50 @@
           const params = e.parameter;
 
           if (params.action == 'getQuestions') {
-            const questionsSheet = ss.getSheetByName('Soal');
-            const data = questionsSheet.getRange('A2:F' + questionsSheet.getLastRow()).getValues(); // Kolom F berisi kunci jawaban
-            const questions = data.map(row => ({
-              question: row[0],
-              optionA: row[1],
-              optionB: row[2],
-              optionC: row[3],
-              optionD: row[4],
-              correctAnswer: row[5].toString().trim().toUpperCase()
+            const questionsSheet = ss.getSheetByName('Questions');
+            const data = questionsSheet.getRange('A2:J' + questionsSheet.getLastRow()).getValues();
+            const questions = data.slice(1).map(row => ({
+                question: row[1],
+                optionA: row[2],
+                optionB: row[3],
+                optionC: row[4],
+                optionD: row[5],
+                correctAnswer: row[6].toString().trim().toUpperCase(),
+                points: parseInt(row[9])
             }));
             
-            const selectedQuestions = questions.slice(0, 20); // Ambil 20 soal pertama
-            selectedQuestions.sort(() => Math.random() - 0.5); // Acak urutan soal
+            const selectedQuestions = questions.slice(0, 20); 
+            selectedQuestions.sort(() => Math.random() - 0.5); 
             
-            // Mengirimkan data tanpa kunci jawaban untuk keamanan
-            const questionsForFrontend = selectedQuestions.map(q => {
-              const { correctAnswer, ...rest } = q;
-              return rest;
-            });
-
-            // Simpan kunci jawaban ke CacheService untuk validasi nanti
             const cache = CacheService.getScriptCache();
             const quizKey = Utilities.getUuid();
-            cache.put(quizKey, JSON.stringify(selectedQuestions.map(q => q.correctAnswer)), 600); 
+            const questionsForCache = selectedQuestions.map(q => ({
+                correctAnswer: q.correctAnswer,
+                points: q.points
+            }));
+            cache.put(quizKey, JSON.stringify(questionsForCache), 600);
+
+            const questionsForFrontend = selectedQuestions.map(q => {
+              const { correctAnswer, points, ...rest } = q;
+              return rest;
+            });
 
             return ContentService.createTextOutput(JSON.stringify({ success: true, questions: questionsForFrontend, quizKey: quizKey })).setMimeType(ContentService.MimeType.JSON);
           
           } else if (params.action == 'getSettings') {
-            // Asumsi sheet Pengaturan memiliki data di kolom B
-            const settingsSheet = ss.getSheetByName('Pengaturan');
-            const settings = {
-              time_limit: settingsSheet.getRange('B1').getValue(),
-              passing_score: settingsSheet.getRange('B2').getValue(),
-              total_questions: settingsSheet.getRange('B3').getValue()
-            };
+            const settingsSheet = ss.getSheetByName('Settings');
+            const settings = {};
+            settingsSheet.getDataRange().getValues().slice(1).forEach(row => {
+                settings[row[0]] = row[1];
+            });
             return ContentService.createTextOutput(JSON.stringify({ success: true, settings: settings })).setMimeType(ContentService.MimeType.JSON);
           }
         }
 
         function doPost(e) {
-          const sheetId = '19dxJaglnuC7YqPVtoGlYB_RiZvt_8c1d7PB4LKP-Qm8'; // Ganti dengan ID Spreadsheet Anda
+          const sheetId = '19dxJaglnuC7YqPVtoGlYB_RiZvt_8c1d7PB4LKP-Qm8';
           const ss = SpreadsheetApp.openById(sheetId);
-          const resultSheet = ss.getSheetByName('Hasil');
+          const resultSheet = ss.getSheetByName('Results');
           
           const params = e.parameter;
           
@@ -717,41 +762,59 @@
               email: params.email,
               startTime: params.startTime,
               endTime: params.endTime,
-              timeUp: params.timeUp === 'true'
+              timeUp: params.timeUp === 'true',
+              browserInfo: params.browserInfo
             };
 
             const answers = JSON.parse(params.answers);
 
-            // Perhitungan skor berdasarkan kunci jawaban yang tersimpan
-            const correctAnswers = ['A', 'C', 'B', 'D', 'A', 'B', 'C', 'A', 'D', 'C', 'B', 'A', 'D', 'A', 'B', 'D', 'C', 'B', 'A', 'D']; // Contoh kunci jawaban
-            const totalQuestions = correctAnswers.length;
-            const pointsPerQuestion = 5;
-            const passingScore = 75;
+            const cache = CacheService.getScriptCache();
+            const cachedAnswers = cache.get(params.quizKey);
+            
+            if (!cachedAnswers) {
+              return ContentService.createTextOutput(JSON.stringify({ success: false, error: 'Kunci kuis tidak valid atau kadaluarsa.' })).setMimeType(ContentService.MimeType.JSON);
+            }
 
+            const correctAnswersData = JSON.parse(cachedAnswers);
+            const totalQuestions = correctAnswersData.length;
+            const passingScore = parseInt(getSettingsFromSheet(ss.getSheetByName('Settings')).passing_score);
             let score = 0;
             let correctCount = 0;
             
-            for (let i = 0; i < answers.length && i < correctAnswers.length; i++) {
-              if (answers[i] && answers[i].toString().trim().toUpperCase() === correctAnswers[i].toString().trim().toUpperCase()) {
+            for (let i = 0; i < answers.length && i < correctAnswersData.length; i++) {
+              if (answers[i] && answers[i].toString().trim().toUpperCase() === correctAnswersData[i].correctAnswer.toString().trim().toUpperCase()) {
                 correctCount++;
-                score += pointsPerQuestion;
+                score += correctAnswersData[i].points;
               }
             }
 
-            const percentage = Math.round((correctCount / totalQuestions) * 100);
+            const percentage = Math.round((score / (totalQuestions * 5)) * 100);
+
+            let status = score >= passingScore ? 'LULUS' : 'TIDAK LULUS';
+            if (participantData.timeUp) {
+                status = 'TIDAK LULUS (Waktu Habis)';
+            }
+            
+            const startTimeDate = new Date(participantData.startTime);
+            const completedAt = new Date(participantData.endTime);
+            const durationMinutes = Math.round((completedAt - startTimeDate) / (1000 * 60));
 
             const row = [
-              new Date(),
               participantData.fullName,
               participantData.nip,
               participantData.institution,
               participantData.email,
               score,
+              correctCount, 
               percentage + '%',
-              score >= passingScore ? 'LULUS' : 'TIDAK LULUS',
-              participantData.timeUp ? 'Waktu Habis' : 'Selesai',
-              participantData.startTime,
-              participantData.endTime
+              startTimeDate,
+              completedAt,
+              durationMinutes,
+              status,
+              JSON.stringify(answers),
+              'N/A',
+              participantData.browserInfo,
+              new Date()
             ];
 
             resultSheet.appendRow(row);
@@ -759,6 +822,24 @@
             return ContentService.createTextOutput(JSON.stringify({ success: true, score: score, percentage: percentage, totalQuestions: totalQuestions })).setMimeType(ContentService.MimeType.JSON);
           }
         }
+        
+        // Fungsi pembantu untuk membuat respons API yang konsisten
+        function createResponse(data) {
+          return ContentService
+            .createTextOutput(JSON.stringify(data))
+            .setMimeType(ContentService.MimeType.JSON);
+        }
+
+        function getSettingsFromSheet(sheet) {
+          const data = sheet.getDataRange().getValues();
+          const settings = {};
+          for (let i = 1; i < data.length; i++) {
+            settings[data[i][0]] = data[i][1];
+          }
+          return settings;
+        }
+
+        // ... (Fungsi lain yang tidak perlu diubah)
         */
     </script>
 </body>
